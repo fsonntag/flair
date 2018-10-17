@@ -24,9 +24,9 @@ def test_text_classifier_single_label():
 
     for s in model.predict(sentence):
         for l in s.labels:
-            assert(l.name is not None)
-            assert(0.0 <= l.confidence <= 1.0)
-            assert(type(l.confidence) is float)
+            assert(l.value is not None)
+            assert(0.0 <= l.score <= 1.0)
+            assert(type(l.score) is float)
 
     # clean up results directory
     shutil.rmtree('./results')
@@ -37,7 +37,7 @@ def test_text_classifier_mulit_label():
     label_dict = corpus.make_label_dictionary()
 
     glove_embedding: WordEmbeddings = WordEmbeddings('en-glove')
-    document_embeddings: DocumentMeanEmbeddings = DocumentMeanEmbeddings([glove_embedding], True)
+    document_embeddings: DocumentMeanEmbeddings = DocumentMeanEmbeddings([glove_embedding])
 
     model = TextClassifier(document_embeddings, label_dict, True)
 
@@ -48,9 +48,9 @@ def test_text_classifier_mulit_label():
 
     for s in model.predict(sentence):
         for l in s.labels:
-            assert(l.name is not None)
-            assert(0.0 <= l.confidence <= 1.0)
-            assert(type(l.confidence) is float)
+            assert(l.value is not None)
+            assert(0.0 <= l.score <= 1.0)
+            assert(type(l.score) is float)
 
     # clean up results directory
     shutil.rmtree('./results')
